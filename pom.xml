@@ -18,26 +18,15 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <!--<parent>-->
-        <!--<groupId>org.ballerinalang</groupId>-->
-        <!--<artifactId>ballerina-parent</artifactId>-->
-        <!--<version>0.89</version>-->
-        <!--<relativePath>../../pom.xml</relativePath>-->
-    <!--</parent>-->
     <groupId>org.wso2.ballerinalang</groupId>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ballerina-math</artifactId>
     <packaging>jar</packaging>
     <version>0.1</version>
-    <name>Ballerina - Native Implementation</name>
+    <name>Ballerina - Math Native Implementation</name>
     <url>http://ballerinalang.org</url>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.ballerinalang</groupId>-->
-            <!--<artifactId>ballerina-core</artifactId>-->
-            <!--<version>0.89</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.ballerinalang</groupId>
             <artifactId>annotation-processor</artifactId>
@@ -49,10 +38,6 @@
             <version>0.89</version>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.ballerinalang</groupId>-->
-            <!--<artifactId>ballerina-logging</artifactId>-->
-        <!--</dependency>-->
     </dependencies>
 
     <build>
@@ -80,26 +65,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <!-- For ballerina natives processing/validation -->
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>exec-maven-plugin</artifactId>-->
-                <!--<version>1.1.1</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>process-classes</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>java</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<mainClass>org.ballerinalang.natives.annotation.processor.BuiltinPackageValidator</mainClass>-->
-                            <!--<arguments>-->
-                                <!--<argument>${generated.ballerina.source.directory}</argument>-->
-                            <!--</arguments>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
 
             <!-- For ballerina annotation processing -->
             <plugin>
@@ -111,12 +76,10 @@
                         <processor>org.ballerinalang.natives.annotation.processor.BallerinaAnnotationProcessor</processor>
                     </processors>
                     <options>
-                        <packageName>${native.constructs.provider.package1}</packageName>
-                        <className>${native.constructs.provider.class1}</className>
+                        <packageName>${native.constructs.provider.package}</packageName>
+                        <className>${native.constructs.provider.class}</className>
                         <srcDir>${ballerina.source.directory}</srcDir>
-                        <targetDir>${generated.ballerina.source.directory}</targetDir>
                         <pkgRepositoryClass>${package.repository.provider.class}</pkgRepositoryClass>
-                        <isSystemPkgRepository>${ballerina.system.package.repository}</isSystemPkgRepository>
                     </options>
                 </configuration>
                 <executions>
@@ -130,6 +93,7 @@
                 </executions>
             </plugin>
 
+
         </plugins>
     </build>
 
@@ -138,15 +102,11 @@
         <ballerina.source.directory>${project.build.directory}/../src/main/ballerina</ballerina.source.directory>
         <package.repository.provider.class>org.wso2.ballerina.math.repository.BallerinaBuiltinPackageRepository
         </package.repository.provider.class>
-        <ballerina.system.package.repository>false</ballerina.system.package.repository>
 
-        <native.constructs.provider.package1>org.wso2.ballerina.math</native.constructs.provider.package1>
-        <native.constructs.provider.class1>MathNativeConstructsProvider</native.constructs.provider.class1>
-        <ballerina.package.repository.provider.class>BallerinaBuiltinPackageRepository
-        </ballerina.package.repository.provider.class>
+        <native.constructs.provider.package>org.wso2.ballerina.math</native.constructs.provider.package>
+        <native.constructs.provider.class>MathNativeConstructsProvider</native.constructs.provider.class>
 
         <!-- Path to the generated natives ballerina files temp directory -->
-        <!--<generated.ballerina.source.directory>${project.build.directory}/natives</generated.ballerina.source.directory>-->
         <generated.ballerina.source.directory>${project.build.directory}/../src/main/ballerina</generated.ballerina.source.directory>
     </properties>
 </project>
