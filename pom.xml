@@ -1,0 +1,143 @@
+<!--
+  ~ Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~
+  ~ WSO2 Inc. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>org.ballerinalang</groupId>
+        <artifactId>ballerina-parent</artifactId>
+        <version>0.89</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+    <groupId>org.wso2.ballerinalang</groupId>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>ballerina-math</artifactId>
+    <packaging>jar</packaging>
+    <version>0.1</version>
+    <name>Ballerina - Native Implementation</name>
+    <url>http://ballerinalang.org</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.ballerinalang</groupId>
+            <artifactId>ballerina-core</artifactId>
+            <version>0.89</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ballerinalang</groupId>
+            <artifactId>annotation-processor</artifactId>
+            <version>0.89</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ballerinalang</groupId>
+            <artifactId>ballerina-native</artifactId>
+            <version>0.89</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.ballerinalang</groupId>-->
+            <!--<artifactId>ballerina-logging</artifactId>-->
+        <!--</dependency>-->
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>ballerina/**</exclude>
+                </excludes>
+            </resource>
+
+            <!-- copy built-in ballerina sources to the jar -->
+            <resource>
+                <directory>${generated.ballerina.source.directory}</directory>
+                <targetPath>META-INF/natives</targetPath>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- For ballerina natives processing/validation -->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>exec-maven-plugin</artifactId>-->
+                <!--<version>1.1.1</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>process-classes</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>java</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<mainClass>org.ballerinalang.natives.annotation.processor.BuiltinPackageValidator</mainClass>-->
+                            <!--<arguments>-->
+                                <!--<argument>${generated.ballerina.source.directory}</argument>-->
+                            <!--</arguments>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+
+            <!-- For ballerina annotation processing -->
+            <plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <version>2.2.4</version>
+                <configuration>
+                    <processors>
+                        <processor>org.ballerinalang.natives.annotation.processor.BallerinaAnnotationProcessor</processor>
+                    </processors>
+                    <options>
+                        <packageName>${native.constructs.provider.package1}</packageName>
+                        <className>${native.constructs.provider.class1}</className>
+                        <srcDir>${ballerina.source.directory}</srcDir>
+                        <targetDir>${generated.ballerina.source.directory}</targetDir>
+                        <pkgRepositoryClass>${package.repository.provider.class}</pkgRepositoryClass>
+                        <isSystemPkgRepository>${ballerina.system.package.repository}</isSystemPkgRepository>
+                    </options>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <properties>
+        <!-- Path to the ballerina source directory -->
+        <ballerina.source.directory>${project.build.directory}/../src/main/ballerina</ballerina.source.directory>
+        <package.repository.provider.class>org.wso2.ballerina.math.repository.BallerinaBuiltinPackageRepository
+        </package.repository.provider.class>
+        <ballerina.system.package.repository>false</ballerina.system.package.repository>
+
+        <native.constructs.provider.package1>org.wso2.ballerina.math</native.constructs.provider.package1>
+        <native.constructs.provider.class1>MathNativeConstructsProvider</native.constructs.provider.class1>
+        <ballerina.package.repository.provider.class>BallerinaBuiltinPackageRepository
+        </ballerina.package.repository.provider.class>
+
+        <!-- Path to the generated natives ballerina files temp directory -->
+        <!--<generated.ballerina.source.directory>${project.build.directory}/natives</generated.ballerina.source.directory>-->
+        <generated.ballerina.source.directory>${project.build.directory}/../src/main/ballerina</generated.ballerina.source.directory>
+    </properties>
+</project>
