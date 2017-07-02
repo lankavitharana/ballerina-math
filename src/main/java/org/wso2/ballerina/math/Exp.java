@@ -48,6 +48,7 @@ public class Exp extends AbstractNativeFunction {
         return getBValues(new BFloat(Math.exp(value)));
     }
 
+    //Below methods are temporary, these should come from super class, but at the moment, it is not, hence added here
     public double getDoubleArgumentTemp(Context context, int index) {
         if (index > -1 && index < this.argTypeNamesTemp.length) {
             return context.getControlStackNew().getCurrentFrame().getDoubleLocalVars()[index];
