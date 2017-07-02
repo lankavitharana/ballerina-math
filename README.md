@@ -6,7 +6,7 @@ This is a native function module for ballerina. Which you can use as a sample to
 
 This is currently depends on ballerina 0.89 release. Since ballerina jars are not yet available in nexus, you'll have to build "ballerina-parent" "v0.89" tag and "ballerina" "v0.89" tags locally before building this sample.(this is a temporary solution)
 
- - Go to the project folder and buil using "mvn clean install"
+ - Go to the project folder and build using "mvn clean install"
 
  - Copy the jar file to BALLERINA_HOME/bre/lib folder
 
