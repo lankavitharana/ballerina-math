@@ -15,28 +15,32 @@
 * specific language governing permissions and limitations
 * under the License.
 */
-package org.wso2.ballerina.math;
+package org.wso2.sample.math;
 
 import org.ballerinalang.bre.Context;
-import org.ballerinalang.model.types.TypeEnum;
-import org.ballerinalang.model.values.BFloat;
+import org.ballerinalang.model.types.TypeKind;
+import org.ballerinalang.model.values.BInteger;
 import org.ballerinalang.model.values.BValue;
 import org.ballerinalang.natives.AbstractNativeFunction;
+import org.ballerinalang.natives.annotations.Argument;
 import org.ballerinalang.natives.annotations.BallerinaFunction;
 import org.ballerinalang.natives.annotations.ReturnType;
 
 /**
- * Native function wso2.ballerina.math:pow.
+ * Native function wso2.ballerina.math:nextInt.
  */
 @BallerinaFunction(
-        packageName = "wso2.ballerina.math",
-        functionName = "random",
-        returnType = {@ReturnType(type = TypeEnum.FLOAT)},
+        packageName = "wso2.sample.math",
+        functionName = "nextInt",
+        args = {@Argument(name = "a", type = TypeKind.INT)},
+        returnType = {@ReturnType(type = TypeKind.INT)},
         isPublic = true
 )
-public class Random extends AbstractNativeFunction {
+public class NextInt extends AbstractNativeFunction {
 
     public BValue[] execute(Context ctx) {
-        return getBValues(new BFloat(Math.random()));
+        int bound = (int) getIntArgument(ctx, 0);
+        int res = new java.util.Random().nextInt(bound);
+        return getBValues(new BInteger(res));
     }
 }

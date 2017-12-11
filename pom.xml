@@ -29,13 +29,13 @@
     <dependencies>
         <dependency>
             <groupId>org.ballerinalang</groupId>
-            <artifactId>annotation-processor</artifactId>
-            <version>0.89</version>
+            <artifactId>ballerina-lang</artifactId>
+            <version>0.95.1</version>
         </dependency>
         <dependency>
             <groupId>org.ballerinalang</groupId>
-            <artifactId>ballerina-native</artifactId>
-            <version>0.89</version>
+            <artifactId>ballerina-core</artifactId>
+            <version>0.95.1</version>
         </dependency>
 
     </dependencies>
@@ -51,7 +51,7 @@
 
             <!-- copy built-in ballerina sources to the jar -->
             <resource>
-                <directory>${generated.ballerina.source.directory}</directory>
+                <directory>${project.build.directory}/../src/main/ballerina</directory>
                 <targetPath>META-INF/natives</targetPath>
             </resource>
         </resources>
@@ -73,13 +73,11 @@
                 <version>2.2.4</version>
                 <configuration>
                     <processors>
-                        <processor>org.ballerinalang.natives.annotation.processor.BallerinaAnnotationProcessor</processor>
+                        <processor>org.ballerinalang.codegen.BallerinaAnnotationProcessor</processor>
                     </processors>
                     <options>
-                        <packageName>${native.constructs.provider.package}</packageName>
-                        <className>${native.constructs.provider.class}</className>
-                        <srcDir>${ballerina.source.directory}</srcDir>
-                        <pkgRepositoryClass>${package.repository.provider.class}</pkgRepositoryClass>
+                        <nativeEntityProviderPackage>org.wso2.sample.generated.providers</nativeEntityProviderPackage>
+                        <nativeEntityProviderClass>StandardNativeElementProvider</nativeEntityProviderClass>
                     </options>
                 </configuration>
                 <executions>
@@ -92,21 +90,7 @@
                     </execution>
                 </executions>
             </plugin>
-
-
         </plugins>
     </build>
 
-    <properties>
-        <!-- Path to the ballerina source directory -->
-        <ballerina.source.directory>${project.build.directory}/../src/main/ballerina</ballerina.source.directory>
-        <package.repository.provider.class>org.wso2.ballerina.math.repository.BallerinaBuiltinPackageRepository
-        </package.repository.provider.class>
-
-        <native.constructs.provider.package>org.wso2.ballerina.math</native.constructs.provider.package>
-        <native.constructs.provider.class>MathNativeConstructsProvider</native.constructs.provider.class>
-
-        <!-- Path to the generated natives ballerina files temp directory -->
-        <generated.ballerina.source.directory>${project.build.directory}/../src/main/ballerina</generated.ballerina.source.directory>
-    </properties>
 </project>
