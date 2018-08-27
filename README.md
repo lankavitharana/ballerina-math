@@ -12,7 +12,7 @@ This is currently depends on ballerina 0.981.0 release.
 
  - Copy the jar file to BALLERINA_HOME/bre/lib folder
  
- - Extract the zip file and copy the content ("ballerina-math-0.981.0-SNAPSHOT-ballerina-binary-repo/repo" folder)
+ - Extract the zip file and copy the content ("ballerina-math-0.981.0-SNAPSHOT-ballerina-binary-repo/repo" folder content)
  to BALLERINA_HOME/lib/repo directory
 
 Then you can use functions in "wso2/math" package within your ballerina files.
