@@ -4,32 +4,31 @@ This is a native function module for ballerina. Which you can use as a sample to
 
 ## how to use?
 
-This is currently depends on ballerina 0.89 release. Since ballerina jars are not yet available in nexus, you'll have to build "ballerina-parent" "v0.89" tag and "ballerina" "v0.89" tags locally before building this sample.(this is a temporary solution)
+This is currently depends on ballerina 0.981.0 release. 
 
  - Go to the project folder and build using "mvn clean install"
+ 
+ - There will be a zip file and a jar file inside the target directory
 
  - Copy the jar file to BALLERINA_HOME/bre/lib folder
+ 
+ - Extract the zip file and copy the content ("ballerina-math-0.981.0-SNAPSHOT-ballerina-binary-repo/repo" folder)
+ to BALLERINA_HOME/lib/repo directory
 
-Then you can use functions in "wso2.ballerina.math" package within your ballerina files.
+Then you can use functions in "wso2/math" package within your ballerina files.
 
-Sample usage would be as follows
+Sample usage would be as follows (mathTest.bal)
 
 ```
-import ballerina.lang.system;
-import wso2.ballerina.math;
+import wso2/math;
+import ballerina/io;
 
-function main (string[] args) {
-        float a = 2;
-        float b = math:exp(a);
-        float c = 2.0;
-        float d = 2.0;
-        float e = math:pow(c,d);
-        float f = math:random();
-        system:println(b);
-        system:println(e);
-        system:println(f);
-
+function main(string... args) {
+        io:println(math:addInt(5, 6));
 }
 
+
 ```
+
+run this with `ballerina run --offline mathTest.bal`
 
