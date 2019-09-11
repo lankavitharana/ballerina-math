@@ -1,0 +1,16 @@
+[project]
+org-name= "rajith"
+version= "1.0.0"
+
+
+[platform]
+target = "java8"
+
+    [[platform.libraries]]
+    artifactId = "ballerina-math"
+    version = "@project.version@"
+    path = "../native-math/target/ballerina-math-1.0.0.jar"
+    groupId = "org.wso2.ballerinalang"
+    modules = ["math"]
+
+[dependencies]

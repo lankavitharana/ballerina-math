@@ -1,34 +1,21 @@
 # ballerina-math
 
-This is a native function module for ballerina. Which you can use as a sample to build your own ballerina native functions.
+This is a interop function module for ballerina. Which you can use as a sample to build your own ballerina interop functions.
 
 ## how to use?
 
-This is currently depends on ballerina 0.981.0 release. 
+This is currently depends on ballerina 1.0.0 release. 
 
- - Go to the project folder and build using "mvn clean install"
+ - Go to the `native-math` folder inside project folder and build using "mvn clean install"
  
- - There will be a zip file and a jar file inside the target directory
+ - Above will create the native jar file with relevant method class included
 
- - Copy the jar file to BALLERINA_HOME/bre/lib folder
+ - Then go to the `ballerina-math` folder inside the project folder and do `ballerina build -a`
+
+ - Above command will create the final uber jar inside `ballerina-math/target/bin/math.jar
  
- - Extract the zip file and copy the content ("ballerina-math-0.981.0-SNAPSHOT-ballerina-binary-repo/repo" folder content)
- to BALLERINA_HOME/lib/repo directory
+ - You can run the above jar either as a standalong jar (java -jar target/bin/math.jar) or using the ballerina command itself (ballerina run target/bin/math.jar)
+ 
+ Note that you should have ballerina 1.0.0 version installed get this compiled and running
 
-Then you can use functions in "wso2/math" package within your ballerina files.
-
-Sample usage would be as follows (mathTest.bal)
-
-```
-import wso2/math;
-import ballerina/io;
-
-function main(string... args) {
-        io:println(math:addInt(5, 6));
-}
-
-
-```
-
-run this with `ballerina run --offline mathTest.bal`
 
